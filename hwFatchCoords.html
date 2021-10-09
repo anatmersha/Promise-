@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="para"></p>
+    <input id="area" type="text">
+    <p id="p"></p>
+    <button id="btn" type="button" onclick="showCords()">SEND</button>
+    <script>
+        function showCords() {
+            let area = document.getElementById('area');
+            let btn = document.getElementById('btn');
+            let p = document.getElementById('p');
+            const apiKey = `e349d23c445383fae0196ca17e08c262`;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${area.value}&appid=${apiKey}`;
+            fetch(url, {
+                method: "GET"
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                if (data.cod === 200) {
+                    p.innerHTML = `COORDS <p>Longitude: ${data.coord.lon} Latitude: ${data.coord.lat}</p>`;
+                } else {
+                    p.innerHTML = `${data.message}`;
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+    </script>
+</body>
+
+</html>

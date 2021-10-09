@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        // consuming a promise
+        const url = "https://jsonplaceholder.typicode.com/posts";
+        axios.get(url)
+            .then((response) => {
+                if (response.status === 200) {}
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log("error");
+            })
+            // creating a promise
+        const promise = new Promise((resolve, reject) => {
+            const random = Math.floor(Math.random() * 100);
+            if (random >= 50) {
+                resolve("resolved");
+            }
+            reject("rejected")
+        });
+        // calling the promise
+        promise
+            .then(answer => {
+                console.log(answer);
+            })
+            .catch(negative => {
+                console.log(negative);
+            })
+    </script>
+</body>
+
+</html>

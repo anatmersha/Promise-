@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="para"></p>
+    <label for="Longitude">Longitude</label>
+    <input id="Longitude" type="text" name="Longitude">
+    <label for="Latitude">Latitude</label>
+    <input id="Latitude" type="text" name="Latitude">
+    <p id="p"></p>
+    <button id="btn" type="button" onclick="showCords()">SEND</button>
+    <script>
+        function showCords() {
+            let Latitude = document.getElementById('Latitude');
+            let Longitude = document.getElementById('Longitude');
+            let btn = document.getElementById('btn');
+            let p = document.getElementById('p');
+            const lat = Latitude.value;
+            const lon = Longitude.value;
+            const apiKey = `e349d23c445383fae0196ca17e08c262`;
+            const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+            fetch(url, {
+                method: "GET"
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                console.log(data.name);
+                if (data.cod === 200) {
+                    p.innerHTML = `<p>Country:${data.name} temp: ${data.main.temp} max: ${data.main.temp_max} min: ${data.main.temp_min}</p>`;
+                } else {
+                    p.innerHTML = `${data.message}`;
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+    </script>
+</body>
+
+</html>
